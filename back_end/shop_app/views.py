@@ -9,6 +9,6 @@ from rest_framework.response import Response
 @api_view(["GET"])
 def products(request):
     products = Product.objects.all()
-    serializer = ProductSerializer(products, manu=True)
+    serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
     
