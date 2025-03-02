@@ -1,9 +1,8 @@
-import React from 'react'
 import { FaInstagram, FaFacebook, FaTwitter} from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="py-3" style={{ backgroundColor: '#6050DC', color: 'white' }}>
+    <footer className="py-3" style={{ backgroundColor: '#014421', color: 'white' }}>
         <div className="container text-center">
             {/* Quick Links Section */}
             <div className="mb-2">
