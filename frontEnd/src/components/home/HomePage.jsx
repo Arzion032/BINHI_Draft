@@ -1,30 +1,31 @@
-import {useState, useEffect, React} from 'react'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import CardContainer from './CardContainer';
 import Header from './Header';
 import api from '../../api';
 
+
 const HomePage = () => {
+  const [products, setProducts] = useState([]);
 
-  const [products, setProducts] = useState([])
+  useEffect(function(){
 
-  useEffect(()=>{
-    api
-    .get("products")
-    .then((res) => {
-      console.log(res.data);
-      setProducts(res.data);
-    })
-    .catch(err => { 
-      console.log(err.message)
-    });
-  },[]);
+  api.get('/products')
+  .then(res => {
+    console.log(res.data);
+    setProducts(res.data)
+  })
+  .catch(err => {
+    console.error(err.message);
+  })
+  },[])
 
   return (
     <>
-    <Header />
-    <CardContainer products={products}/>
+      <Header />
+      <CardContainer products={products} />
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
