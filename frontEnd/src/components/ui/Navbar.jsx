@@ -17,15 +17,15 @@ const Navbar = () => {
         aria-expanded="false"
         aria-label="Toggle navigation"
         >
-                <span className="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarContent">
           <NavBarLink />
           <Link to="/cart" className={`bn btn-dark ms-3 rounded-pill position-relative ${styles.responsiveCart}`}>
-            <FaCartShopping />
+          <FaCartShopping />
             <span
               className="position-absolute top-0 start-100 translate-middle badge rounded-pill"
-              style={{ fontSize: '0.85rem', padding: '0.5em 0.65em', backgroundColor: '#014421'}}
+              style={{ fontSize: '0.75rem', padding: '0.5em 0.65em', backgroundColor: '#014421'}}
             >
               12
             </span>

@@ -3,27 +3,38 @@ import axios from 'axios';
 import CardContainer from './CardContainer';
 import Header from './Header';
 import api from '../../api';
+import PlaceHolderContainer from '../ui/PlaceHolderContainer';
+import Error from '../ui/Error';
 
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
 
   useEffect(function(){
-
+  setLoading(true)
   api.get('/products')
   .then(res => {
-    console.log(res.data);
+    console.log(res.data)
     setProducts(res.data)
+    setLoading(false)
+    setError("")
   })
   .catch(err => {
     console.error(err.message);
+    setLoading(false)
+    setError(err.message);
   })
   },[])
 
   return (
     <>
       <Header />
-      <CardContainer products={products} />
+      {error && <Error error={error} />}
+      {loading && <PlaceHolderContainer />}
+      {loading || error !="" || <CardContainer products={products} />}
     </>
   );
 };
