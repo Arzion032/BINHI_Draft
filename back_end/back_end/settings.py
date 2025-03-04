@@ -27,6 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Add this and comment out the CORS_ALLOWED_ORIGINS list
+CORS_ALLOWED_ORIGINS = [ # Add this for Create React App default port
+    "http://localhost:5173",  # Add HTTP version if you're using Vite  # Alternative localhost notation
+    "http://127.0.0.1:5173"   # Alternative for Vite
+]
 
 # Application definition
 
@@ -128,10 +133,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "binhi_market.CustomUser"
 
-
-CORS_ALLOWED_ORIGINS = [
-    "https://localhost:5171",
-    "https://localhost:5172",
-    "https://localhost:5174"
-
-]

@@ -7,3 +7,4 @@ urlpatterns = [
          views.products,
          name="products")
 ]
+

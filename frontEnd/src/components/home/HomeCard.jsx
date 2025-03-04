@@ -9,16 +9,16 @@ if (!product) return null;
         <Link to="/detail" className={styles.link}>
             <div className={styles.card}>
                 <div className={styles.cardImgWrapper}>
-                    <img 
-                        src=""
-                        className={styles.cardImgTop}
-                        alt="Product Image" 
-                    />
+                <img 
+                    src={product.image || "https://via.placeholder.com/150"} // Use product image or a placeholder
+                    className={styles.cardImgTop}
+                    alt={product.name || "Product Image"} 
+                />
                 </div>
                 
             <div className={styles.cardBody}>
                 <h5 className={`${styles.cardTitle} mb-1`}>{product.name}</h5>
-                <h6 className={styles.cardText}>{product.price}</h6>
+                <h6 className={styles.cardText}>{`₱${product.price}`}</h6>
             </div>
             </div>
         </Link>
