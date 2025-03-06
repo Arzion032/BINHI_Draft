@@ -4,12 +4,40 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import api from '../../api';
 import { BASE_URL } from '../../api';
+import CardContainer from '../home/CardContainer';
 
 const ProductsPage = () => {
     const { slug } = useParams()
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
     const [loading, setLoading] = useState(false)
+    const [inCart, setInCart] = useState(false)
+    const cartCode = localStorage.getItem('cart_code')
+    const newItem = {cart_code: cartCode, product_id:product.id}
+
+    useEffect(function(){
+        if (product.id) {
+            api.get(`product_in_cart?cart_code=${cartCode}&product_id=${product.id}`)
+        .then(res => {
+            console.log(res.data)
+            setInCart(res.data.product_in_cart)
+        })
+        .catch(err => {
+            console.error(err.message);
+        })  
+        }
+    },[cartCode, product.id])
+
+    function add_item(){
+        api.post("add_item/", newItem)
+        .then(res => {
+            console.log(res.data)
+            setInCart(true)
+        })
+        .catch(err => {
+            console.error(err.message)
+        })
+    }
 
     useEffect(function(){
         setLoading(true)
@@ -60,19 +88,15 @@ const ProductsPage = () => {
                             Curabitur et libero vel risus ornare consectetur.
                         </p>
                         <div className="d-flex">
-                            <input
-                                className="form-control text-center me-3"
-                                id="inputQuantity"
-                                type="num"
-                                value="1"
-                                style={{ maxWidth: "3rem"}}
-                            />
+                            
                             <button
                                 className="btn btn-outline-dark flex-shrink-0"
                                 type="button"
+                                onClick={add_item}
+                                disabled={inCart}
                             >
                                 <i className="bi-cart-fill me-1"></i>
-                                Add to cart
+                                {inCart ? "Product added to cart" : "Add to cart"}
                             </button>
                         </div>
                     </div>

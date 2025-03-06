@@ -3,7 +3,7 @@ import { FaCartShopping } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import styles from "./NavBar.module.css"
 import NavBarLink from './NavBarLink';
-const Navbar = () => {
+const Navbar = ({cartItems}) => {
   return (
     <nav className={`navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3 ${styles.stickyNavbar}`}>
     <div className="container">
@@ -23,12 +23,12 @@ const Navbar = () => {
           <NavBarLink />
           <Link to="/cart" className={`bn btn-dark ms-3 rounded-pill position-relative ${styles.responsiveCart}`}>
           <FaCartShopping />
-            <span
+          {  cartItems == 0 || <span
               className="position-absolute top-0 start-100 translate-middle badge rounded-pill"
               style={{ fontSize: '0.75rem', padding: '0.5em 0.65em', backgroundColor: '#014421'}}
-            >
-              12
-            </span>
+            > 
+            {cartItems}
+            </span>}
           
           </Link>
         </div>
