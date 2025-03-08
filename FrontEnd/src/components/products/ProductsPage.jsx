@@ -6,7 +6,7 @@ import api from '../../api';
 import { BASE_URL } from '../../api';
 import CardContainer from '../home/CardContainer';
 
-const ProductsPage = () => {
+const ProductsPage = ({setNumberCartItems}) => {
     const { slug } = useParams()
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
@@ -26,6 +26,7 @@ const ProductsPage = () => {
             console.error(err.message);
         })  
         }
+        
     },[cartCode, product.id])
 
     function add_item(){
@@ -33,6 +34,7 @@ const ProductsPage = () => {
         .then(res => {
             console.log(res.data)
             setInCart(true)
+            setNumberCartItems(curr => curr +1)
         })
         .catch(err => {
             console.error(err.message)

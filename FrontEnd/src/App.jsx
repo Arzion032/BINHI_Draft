@@ -5,6 +5,7 @@ import NotFoundPage from './components/ui/NotFoundPage';
 import ProductsPage from "./components/products/ProductsPage";
 import { useState, useEffect } from "react";
 import api from "./api";
+import CartPage from "./components/carts/CartPage";
 
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
       api.get(`get_cart_stat?cart_code=${cartCode}` )
     .then(res => {
       console.log(res.data)
+      setNumberCartItems(res.data.num_of_items)
+      
       })
     .catch((err => {
       console.error(err)
@@ -29,10 +32,13 @@ const App = () => {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<MainLayout cartItems={cartItems}/>}>
+      
+      <Route path="/" element={<MainLayout cartItems={cartItems} />}>
       <Route index element={<HomePage />}/>
-      <Route path="products/:slug" element={<ProductsPage />}/>
+      <Route path="products/:slug" element={<ProductsPage setNumberCartItems={setNumberCartItems}/>}/>
+      <Route path="/cart" element={<CartPage />}/>
       <Route path="*" element={<NotFoundPage />}/>
+
       </Route>
     </Routes>
     </BrowserRouter>)
