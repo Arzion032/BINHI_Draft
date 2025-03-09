@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import CartItem from './CartItem'
 import CartSummary from './CartSummary'
 import api from '../../api'
-const CartPage = () => {
+
+const CartPage = ({setNumberCartItems}) => {
 
     const [cartItems, setCartItems] = useState([])
     const [cartTotal, setCartTotal] = useState(0.00)
     const cartCode = localStorage.getItem("cart_code")
     const [tax, setTax] = useState(5.00)
+
     useEffect(function() {
         api.get(`get_cart?cart_code=${cartCode}`)
         .then(res => {
@@ -34,7 +36,7 @@ const CartPage = () => {
             <h5 className="mb-4">Shopping Cart</h5>
             <div className="row">
                <div className="col-md-8">
-                    {cartItems.map(item => <CartItem key={item.id} item={item}/>)}
+                    {cartItems.map(item => <CartItem key={item.id} item={item} setCartTotal={setCartTotal} cartItems={cartItems} setNumberCartItems={setNumberCartItems} setCartItems={setCartItems}/>)}
                     
                 </div>
            

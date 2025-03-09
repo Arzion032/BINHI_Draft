@@ -4,7 +4,7 @@ from .models import Product, Cart, CartItem
 from .serializers import (CartItemSerializer, CartSerializer, DetailedProductSerializer, ProductSerializer,
     SimpleCartSerializer)
 from rest_framework.response import Response
-
+from rest_framework import status
 # Create your views here.
 
 @api_view(["GET"])
@@ -62,3 +62,28 @@ def get_cart(request):
     cart = Cart.objects.get(cart_code = cart_code, paid=False)
     serializer = CartSerializer(cart)
     return Response(serializer.data)
+
+@api_view(['PATCH'])
+def update_quantity(request):
+    try:
+        cart_item_id = request.data.get('item_id')
+        quantity = request.data.get('quantity')
+        quantity = int(quantity)
+        cart_item = CartItem.objects.get(id=cart_item_id)
+        cart_item.quantity = quantity
+        cart_item.save()
+        serializer = CartItemSerializer(cart_item)
+        return Response({'data': serializer.data,  'message': 'Cart Item updated successfully!'})
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)
+    
+@api_view(['POST'])
+def delete_item(request):
+    
+    cart_item_id = request.data.get("item_id")
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    cart_item.delete()
+    return Response({"message":"Item deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+        
+        

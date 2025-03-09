@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import api from '../../api';
 import { BASE_URL } from '../../api';
 import CardContainer from '../home/CardContainer';
+import { toast } from 'react-toastify';
 
 const ProductsPage = ({setNumberCartItems}) => {
     const { slug } = useParams()
@@ -33,6 +34,7 @@ const ProductsPage = ({setNumberCartItems}) => {
         api.post("add_item/", newItem)
         .then(res => {
             console.log(res.data)
+            toast.success("Product added to cart")
             setInCart(true)
             setNumberCartItems(curr => curr +1)
         })
