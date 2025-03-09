@@ -17,9 +17,7 @@ const HomePage = () => {
     if (localStorage.getItem("cart_code") === null) {
       localStorage.setItem("cart_code", randomValue)
     }
-
   }, [])
-
 
   useEffect(function () {
     setLoading(true)

@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import api from "./api";
 import CartPage from "./components/carts/CartPage";
 
-
 const App = () => {
 
   const [cartItems, setNumberCartItems] = useState(0);
@@ -36,7 +35,7 @@ const App = () => {
       <Route path="/" element={<MainLayout cartItems={cartItems} />}>
       <Route index element={<HomePage />}/>
       <Route path="products/:slug" element={<ProductsPage setNumberCartItems={setNumberCartItems}/>}/>
-      <Route path="/cart" element={<CartPage />}/>
+      <Route path="/cart" element={<CartPage setNumberCartItems={setNumberCartItems}/>}/>
       <Route path="*" element={<NotFoundPage />}/>
 
       </Route>
