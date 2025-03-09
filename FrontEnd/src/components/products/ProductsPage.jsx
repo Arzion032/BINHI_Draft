@@ -64,7 +64,7 @@ const ProductsPage = ({setNumberCartItems}) => {
   return (
     <div>
         <section className="py-3">
-            <div className="container px-4 px-lg my-5">
+            <div className="container px-4 px-lg-4 my-5">
                 <div className="row gx-4  gx-lg-5 align-items-center">
                 <div className="col-md-6 d-flex justify-content-center align-items-center">
                     <img 
@@ -84,10 +84,7 @@ const ProductsPage = ({setNumberCartItems}) => {
                             <span>{`₱${product.price}`}</span>
                         </div>
                         <p className="lead">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Sed vel justo ac lectus scelerisque posuere. 
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                            Curabitur et libero vel risus ornare consectetur.
+                            {product.description}
                         </p>
                         <div className="d-flex">
                             

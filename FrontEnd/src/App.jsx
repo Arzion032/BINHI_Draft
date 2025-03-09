@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import api from "./api";
 import CartPage from "./components/carts/CartPage";
 
-
 const App = () => {
 
   const [cartItems, setNumberCartItems] = useState(0);
