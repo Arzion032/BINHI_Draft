@@ -6,6 +6,9 @@ import ProductsPage from "./components/products/ProductsPage";
 import { useState, useEffect } from "react";
 import api from "./api";
 import CartPage from "./components/carts/CartPage";
+import CheckoutPage from "./components/checkout/CheckoutPage";
+import LoginPage from "./components/user/LoginPage";
+import ProtectedRoute from "./components/ui/ProtectedRoute";
 
 const App = () => {
 
@@ -36,11 +39,14 @@ const App = () => {
       <Route index element={<HomePage />}/>
       <Route path="products/:slug" element={<ProductsPage setNumberCartItems={setNumberCartItems}/>}/>
       <Route path="/cart" element={<CartPage setNumberCartItems={setNumberCartItems}/>}/>
+      <Route path="checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>}/>
+      <Route path="login" element={<LoginPage />}/>
       <Route path="*" element={<NotFoundPage />}/>
 
       </Route>
     </Routes>
-    </BrowserRouter>)
+    </BrowserRouter>
+    )
 }
 
 export default App

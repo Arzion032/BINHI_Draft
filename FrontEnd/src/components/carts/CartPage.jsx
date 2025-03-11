@@ -2,26 +2,15 @@ import React, { useEffect, useState } from 'react'
 import CartItem from './CartItem'
 import CartSummary from './CartSummary'
 import api from '../../api'
-
+import Spinner from  "../ui/Spinner"
+import useCartData from '../../hooks/useCartData'
 const CartPage = ({setNumberCartItems}) => {
 
-    const [cartItems, setCartItems] = useState([])
-    const [cartTotal, setCartTotal] = useState(0.00)
-    const cartCode = localStorage.getItem("cart_code")
-    const [tax, setTax] = useState(5.00)
+    const {cartItems, setCartItems, cartTotal, setCartTotal, loading, tax} = useCartData()
 
-    useEffect(function() {
-        api.get(`get_cart?cart_code=${cartCode}`)
-        .then(res => {
-            console.log(res.data)
-            setCartItems(res.data.items)
-            setCartTotal(res.data.sum_total)
-        })
-        .catch(error =>{
-
-            console.error(error.message)
-        })
-    },[])
+    if(loading){
+        return <Spinner Loading={loading}/>
+    }
 
     if(cartItems.length < 1){
         return(
