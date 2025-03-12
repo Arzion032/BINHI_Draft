@@ -3,13 +3,13 @@ import styles from './PaymentSection.module.css'
 const PaymentSection = () => {
   return (
     <div className="col-md-4">
-        <div className={`card ${styles.card}`}>
+        <div className={`card ${styles.card}`} style={{ minHeight: "200px" }}>
             <div className="card-header" style={{ backgroundColor: "#014421", color: "white"}}>
                 <h5>Payment Options</h5>
             </div>
-            <div className="card-body">
+            <div className="card-body" style={{ paddingTop: "27.5px" }}>
                 {/*Paypal Button*/}
-            <button className={`btn btn-primary w-100 mb-3 $mb-3 ${styles.paypalButton}`} id="paypal-button">
+            <button className={`btn btn-primary w-100 mb-3 ${styles.paypalButton}`} id="paypal-button">
                 <i className="bi bi-paypal"></i> Pay with Paypal
             </button>
 
