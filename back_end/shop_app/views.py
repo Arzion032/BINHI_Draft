@@ -1,10 +1,10 @@
-from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .models import Product, Cart, CartItem
-from .serializers import (CartItemSerializer, DetailedProductSerializer, ProductSerializer,
-    SimpleCartSerializer)
+from .serializers import (CartItemSerializer, CartSerializer, DetailedProductSerializer,
+    ProductSerializer, SimpleCartSerializer, UserSerializer)
 from rest_framework.response import Response
-
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 @api_view(["GET"])
@@ -55,3 +55,45 @@ def get_cart_stat(request):
     cart = Cart.objects.get(cart_code=cart_code, paid=False)
     serializers = SimpleCartSerializer(cart)
     return  Response(serializers.data)
+
+@api_view(['GET'])
+def get_cart(request):
+    cart_code = request.query_params.get("cart_code")
+    cart = Cart.objects.get(cart_code = cart_code, paid=False)
+    serializer = CartSerializer(cart)
+    return Response(serializer.data)
+
+@api_view(['PATCH'])
+def update_quantity(request):
+    try:
+        cart_item_id = request.data.get('item_id')
+        quantity = request.data.get('quantity')
+        quantity = int(quantity)
+        cart_item = CartItem.objects.get(id=cart_item_id)
+        cart_item.quantity = quantity
+        cart_item.save()
+        serializer = CartItemSerializer(cart_item)
+        return Response({'data': serializer.data,  'message': 'Cart Item updated successfully!'})
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)
+    
+@api_view(['POST'])
+def delete_item(request):
+    
+    cart_item_id = request.data.get("item_id")
+    cart_item = CartItem.objects.get(id=cart_item_id)
+    cart_item.delete()
+    return Response({"message":"Item deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user(request):
+    user = request.user
+    return Response({'username': user.username})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_info(request):
+    user =request.user
+    serializer = UserSerializer(user)
+    return Response(serializer.data)

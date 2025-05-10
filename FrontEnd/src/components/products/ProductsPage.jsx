@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import api from '../../api';
 import { BASE_URL } from '../../api';
 import CardContainer from '../home/CardContainer';
+import { toast } from 'react-toastify';
 
 const ProductsPage = ({setNumberCartItems}) => {
     const { slug } = useParams()
@@ -33,6 +34,7 @@ const ProductsPage = ({setNumberCartItems}) => {
         api.post("add_item/", newItem)
         .then(res => {
             console.log(res.data)
+            toast.success("Product added to cart")
             setInCart(true)
             setNumberCartItems(curr => curr +1)
         })
@@ -64,7 +66,7 @@ const ProductsPage = ({setNumberCartItems}) => {
   return (
     <div>
         <section className="py-3">
-            <div className="container px-4 px-lg my-5">
+            <div className="container px-4 px-lg-4 my-5">
                 <div className="row gx-4  gx-lg-5 align-items-center">
                 <div className="col-md-6 d-flex justify-content-center align-items-center">
                     <img 
@@ -84,10 +86,7 @@ const ProductsPage = ({setNumberCartItems}) => {
                             <span>{`₱${product.price}`}</span>
                         </div>
                         <p className="lead">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Sed vel justo ac lectus scelerisque posuere. 
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
-                            Curabitur et libero vel risus ornare consectetur.
+                            {product.description}
                         </p>
                         <div className="d-flex">
                             
